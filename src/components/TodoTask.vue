@@ -16,7 +16,7 @@ const { modelValue: todo } = useVModels(props, emit)
 
 <template>
   <div class="flex flex-row items-start px-6 space-x-4">
-    <MenuAlt4Icon class="h-6" />
+    <MenuAlt4Icon class="h-6 handle" />
     <!--  toggle todo.isDone => onClick => toggle func  -->
     <!--    Кнопка задача выполнена -->
     <button
