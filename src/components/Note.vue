@@ -25,7 +25,7 @@ const props = defineProps({
           пустая заметка
         </h1>
         <p class="text-stone-600 mt-1">
-          {{ new Date(note.updatedAt).toDateString() }}
+          {{ new Date(note.updatedAt).toLocaleDateString() }}
         </p>
       </div>
     </RouterLink>

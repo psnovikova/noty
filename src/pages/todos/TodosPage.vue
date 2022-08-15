@@ -70,16 +70,27 @@ const deleteTask = (id) => {
     </div>
     <ButtonAdd @click="addTask" />
 
-    <!--    НАЗАВТРА Draggble -->
-    <!--    <draggble -->
-    <!--      tag="ul" -->
-    <!--      :list="addTask" -->
-    <!--      class="list-group" -->
-    <!--      handle=".handle" -->
-    <!--      item-key="name" -->
-    <!--    > -->
-    <!--      <template /> -->
-    <!--    </draggble> -->
+    <!--        НА СЕГОДНЯ Draggble -->
+    <!--    МУСОР МУСОР МУСОР -->
+    <draggble
+      tag="ul"
+      :list="addTask"
+      class="list-group"
+      handle=".handle"
+      item-key="name"
+    >
+      <template #item="{ element, index }">
+        <li class="list-group-item">
+          <i class="fa fa-align-justify handle" />
+
+          <span class="text">{{ element.name }} </span>
+
+          <input v-model="element.text" type="text" class="form-control">
+
+          <i class="fa fa-times close" @click="removeAt(index)" />
+        </li>
+      </template>
+    </draggble>
   </div>
 </template>
 
