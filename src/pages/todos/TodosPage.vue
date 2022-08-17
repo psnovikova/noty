@@ -74,11 +74,9 @@ const deleteTask = (id) => {
       item-key="id"
     >
       <template #item="{ element, index }">
-        <div>
-          <TodoTask v-if="element.isDone === false" v-model="arrTodos[index]" @delete="deleteTask" />
-        </div>
+        <TodoTask v-if="element.isDone === false" v-model="arrTodos[index]" @delete="deleteTask" />
       </template>
-    </draggble>
+    </Draggble>
     <div v-if="arrTodos.filter(el => el.isDone === true).length">
       <hr class="pb-4 border-t-stone-500 border-t-1">
       <draggble
