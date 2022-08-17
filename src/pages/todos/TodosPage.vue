@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import Draggble from 'vuedraggable'
-import { CheckIcon, MenuAlt4Icon, XIcon } from '@heroicons/vue/outline'
 import ButtonAdd from '../../components/ButtonAdd.vue'
 import TodoTask from '../../components/TodoTask.vue'
 
@@ -13,12 +12,7 @@ const arrTodos = useStorage('id', [], localStorage)
 
 const dragging = ref(false)
 
-const handle = computed(() => {
-  if (dragging.value)
-    return 'under drag'
-  else return ''
-  // return this.dragging ? 'under drag' : ''
-})
+const handle = computed(() => dragging.value ? 'under drag' : '')
 
 // БАЗА ЗНАНИЙ ОТ БОГДАНА
 // if (arrTodos.value.length > 0) {
@@ -54,7 +48,6 @@ const deleteTask = (id) => {
   })
   arrTodos.value.splice(numberOfTask, 1)
 }
-// func delete
 </script>
 
 <template>
@@ -62,15 +55,12 @@ const deleteTask = (id) => {
     <h1 class="text-4xl p-6">
       Задачи
     </h1>
-    <ButtonAdd @click="addTask" />
-
-    <!--        НА СЕГОДНЯ Draggble -->
-    <!--    МУСОР МУСОР МУСОР -->
-    <draggble
+    <ButtonAdd class="fixed bottom-24 sm:bottom-6 right-6" @click="addTask" />
+    <Draggble
       tag="ul"
       :list="arrTodos"
       class="list-group"
-      handle=".handle"
+      :handle="handle"
       item-key="id"
     >
       <template #item="{ element, index }">
@@ -79,7 +69,7 @@ const deleteTask = (id) => {
     </Draggble>
     <div v-if="arrTodos.filter(el => el.isDone === true).length">
       <hr class="pb-4 border-t-stone-500 border-t-1">
-      <draggble
+      <Draggble
         tag="ul"
         :list="arrTodos"
         class="list-group"
@@ -87,15 +77,15 @@ const deleteTask = (id) => {
         item-key="id"
       >
         <template #item="{ element, index }">
-          <div>
-            <TodoTask v-if="element.isDone === true" v-model="arrTodos[index]" @delete="deleteTask" />
-          </div>
+          <TodoTask
+            v-if="element.isDone === true"
+            v-model="arrTodos[index]"
+            @delete="deleteTask"
+          />
         </template>
-      </draggble>
+      </Draggble>
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped />
