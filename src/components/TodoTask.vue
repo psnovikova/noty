@@ -27,7 +27,6 @@ const { modelValue: todo } = useVModels(props, emit)
     </button>
     <ResizeTextarea
       v-model="todo.text"
-      :cols="20"
       :rows="1"
       class="font-medium bg-transparent outline-none py-1 grow"
       :class="{ 'line-through text-stone-400': todo.isDone }"
