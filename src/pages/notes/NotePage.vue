@@ -30,9 +30,7 @@ const refreshUpdatedAt = () => note.updatedAt = new Date()
         to="/notes"
         class="bg-stone-600 p-3 rounded-xl cursor-pointer"
       >
-        <ChevronLeftIcon
-          class="h-6"
-        />
+        <ChevronLeftIcon class="h-6" />
       </RouterLink>
       <button class="bg-stone-600 p-3 rounded-xl" @click="goToNotes">
         <TrashIcon class="h-6" />
@@ -42,8 +40,7 @@ const refreshUpdatedAt = () => note.updatedAt = new Date()
       <ResizeTextarea
         v-model="note.title"
         :rows="1"
-        :cols="21"
-        class="text-4xl font-semibold bg-transparent resize-none outline-none"
+        class="text-4xl font-semibold bg-transparent resize-none outline-none w-full"
         placeholder="Заголовок"
         @input="refreshUpdatedAt"
       />
@@ -53,9 +50,9 @@ const refreshUpdatedAt = () => note.updatedAt = new Date()
       <ResizeTextarea
         v-model="note.text"
         :rows="10"
-        :cols="20"
         placeholder="Текст заметки"
-        class="w-full bg-transparent mt-3 outline-none resize-none textOfNote"
+        class="w-full bg-transparent mt-3 outline-none resize-none textOfNote w-full"
+        @input="refreshUpdatedAt"
       />
     </main>
   </div>
