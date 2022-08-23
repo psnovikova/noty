@@ -1,7 +1,7 @@
 <script setup>
 import { ChevronLeftIcon, TrashIcon } from '@heroicons/vue/outline'
-import { useDateFormat, useNow, useStorage } from '@vueuse/core'
-import { ref, watch } from 'vue'
+import { useStorage } from '@vueuse/core'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ResizeTextarea from '/src/components/ResizeTextarea.vue'
 
@@ -12,26 +12,15 @@ const route = useRoute()
  @type Ref<Array>, "value"
  */
 const arrayOfNotes = useStorage('notes', [], localStorage)
-
-// поиск по массиву, массив - это v-model
-
-// watch(note, (newValue) => {
-//   note.value.date = new Date() // доделать
-// })
-
 const note = arrayOfNotes.value.find(element => element.id === route.params.id)
+const formattedDate = computed(() => new Date(note.updatedAt).toLocaleString())
 
 const goToNotes = () => {
-  // const arrayEl = arrayOfNotes.value.findIndex((el) => {
-  //   return el.id === route.params.id
-  // })
-  // // delete arrayOfNotes.value.find(element => element.id === route.params)
-  // delete arrayOfNotes.value[arrayEl]
-
   arrayOfNotes.value = arrayOfNotes.value.filter(element => element.id !== route.params.id)
-
   router.push({ name: 'notes' })
 }
+
+const refreshUpdatedAt = () => note.updatedAt = new Date()
 </script>
 
 <template>
@@ -56,9 +45,10 @@ const goToNotes = () => {
         :cols="21"
         class="text-4xl font-semibold bg-transparent resize-none outline-none"
         placeholder="Заголовок"
+        @input="refreshUpdatedAt"
       />
       <p class="opacity-50 mt-5">
-        {{ new Date(note.updatedAt).toLocaleString() }}
+        {{ formattedDate }}
       </p>
       <ResizeTextarea
         v-model="note.text"
