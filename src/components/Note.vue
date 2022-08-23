@@ -5,6 +5,12 @@ defineProps({
     required: true,
   },
 })
+
+const truncate = (str) => {
+  if (str.length > 128)
+    return `${str.slice(0, 128)}...`
+  return str
+}
 </script>
 
 <template>
