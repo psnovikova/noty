@@ -1,25 +1,25 @@
 <script setup>
-import { CheckCircleIcon, CogIcon, PencilAltIcon } from '@heroicons/vue/outline'
+const prop = defineProps({
+  routes: {
+    type: Array,
+    default: () => [],
+  },
+})
 </script>
 
 <template>
   <div class="sm:hidden bg-stone-700 w-full h-20 fixed bottom-0 flex justify-around items-center">
-    <a
-      id="notes"
-      href="#/notes"
-      class=" target:bg-stone-600"
-    ><PencilAltIcon class="h-6" />Заметки</a>
-    <a
-      href="#/todos"
-    ><CheckCircleIcon class="h-6" />Задачи</a>
-    <a
-      href="#/settings"
-    ><CogIcon class="h-6" />Настройки</a>
+    <RouterLink
+      v-for="route in routes"
+      :key="route.name"
+      :to="{ path: route.path }"
+      active-class="bg-stone-600"
+      class="flex flex-col items-center w-40 p-2 rounded-xl text-xs cursor-pointer m-3"
+    >
+      <component :is="route.icon" class="h-6" />
+      <span>{{ route.name }}</span>
+    </RouterLink>
   </div>
 </template>
 
-<style scoped>
-a {
-  @apply flex flex-col items-center w-1/4 p-2 rounded-xl text-xs cursor-pointer
-}
-</style>
+<style scoped />
