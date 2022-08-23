@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 import Draggble from 'vuedraggable'
 import ButtonAdd from '../../components/ButtonAdd.vue'
@@ -13,6 +13,12 @@ const arrTodos = useStorage('id', [], localStorage)
 const dragging = ref(false)
 
 const handle = computed(() => dragging.value ? 'under drag' : '')
+
+const dragOptions = reactive({
+  animation: 200,
+  disabled: false,
+  ghostClass: 'ghost',
+})
 
 // БАЗА ЗНАНИЙ ОТ БОГДАНА
 // if (arrTodos.value.length > 0) {
@@ -51,41 +57,55 @@ const deleteTask = (id) => {
 </script>
 
 <template>
-  <div class="w-full">
-    <h1 class="text-4xl p-6">
-      Задачи
-    </h1>
-    <ButtonAdd class="fixed bottom-24 sm:bottom-6 right-6" @click="addTask" />
-    <Draggble
-      tag="ul"
-      :list="arrTodos"
-      class="list-group"
-      :handle="handle"
-      item-key="id"
-    >
-      <template #item="{ element, index }">
-        <TodoTask v-if="element.isDone === false" v-model="arrTodos[index]" @delete="deleteTask" />
-      </template>
-    </Draggble>
-    <div v-if="arrTodos.filter(el => el.isDone === true).length">
-      <hr class="pb-4 border-t-stone-500 border-t-1">
+  <div class="flex justify-center">
+    <div class="w-full max-w-5xl">
+      <h1 class="text-4xl p-6 sticky top-0 bg-stone-800/80 backdrop-blur-sm">
+        Задачи
+      </h1>
+      <ButtonAdd class="fixed bottom-24 sm:bottom-6 right-6" @click="addTask" />
       <Draggble
         tag="ul"
         :list="arrTodos"
         class="list-group"
         :handle="handle"
         item-key="id"
+        v-bind="dragOptions"
       >
         <template #item="{ element, index }">
           <TodoTask
-            v-if="element.isDone === true"
+            v-if="element.isDone === false"
             v-model="arrTodos[index]"
+            class="active:{bg-stone-800/80, ghost}"
             @delete="deleteTask"
           />
         </template>
       </Draggble>
+      <div v-if="arrTodos.filter(el => el.isDone === true).length">
+        <hr class="pb-4 border-t-stone-500 border-t-1">
+        <Draggble
+          tag="ul"
+          :list="arrTodos"
+          class="list-group"
+          :handle="handle"
+          item-key="id"
+          v-bind="dragOptions"
+        >
+          <template #item="{ element, index }">
+            <TodoTask
+              v-if="element.isDone === true"
+              v-model="arrTodos[index]"
+              class="active:{bg-stone-800/80, ghost}"
+              @delete="deleteTask"
+            />
+          </template>
+        </Draggble>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped />
+<style scoped>
+.ghost {
+  @apply bg-stone-600
+}
+</style>
