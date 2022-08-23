@@ -16,7 +16,10 @@ pwa.check()
 
 <template>
   <div class="h-screen w-screen flex flex-row bg-stone-800 text-white">
-    <MenuDesktop class="hidden sm:flex max-w-[15rem] w-1/3" />
+    <MenuDesktop
+      :routes="routes"
+      class="hidden sm:flex sm:w-52 md:w-64 shrink-0 mx-3 my-6"
+    />
     <div class="flex flex-col grow pb-20 sm:pb-0">
       <Suspense>
         <RouterView />
@@ -24,11 +27,9 @@ pwa.check()
           Loading...
         </template>
       </Suspense>
-      <MenuMobail />
+      <MenuMobail :routes="routes" />
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped />
