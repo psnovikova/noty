@@ -1,27 +1,30 @@
 <script setup>
-import { CheckCircleIcon, CogIcon, PencilAltIcon } from '@heroicons/vue/outline'
+import { ChevronRightIcon } from '@heroicons/vue/outline'
+
+const prop = defineProps({
+  routes: {
+    type: Array,
+    default: () => [],
+  },
+})
 </script>
 
 <template>
-  <div
-    class="flex-col pl-6 py-10"
-  >
-    <a
-      id="notes"
-      href="#/notes"
-      class=" target:bg-stone-600"
-    ><PencilAltIcon class="h-6 pr-2" />Заметки</a>
-    <a
-      href="#/todos"
-    ><CheckCircleIcon class="h-6 pr-2" />Задачи</a>
-    <a
-      href="#/settings"
-    ><CogIcon class="h-6 pr-2" />Настройки</a>
+  <div class="flex flex-col">
+    <RouterLink
+      v-for="route in routes"
+      :key="route.name"
+      :to="{ path: route.path }"
+      class="flex items-center justify-between flex-row rounded-xl text-base font-medium m-2 py-1 px-5 group"
+      active-class="bg-stone-600"
+    >
+      <div class="flex flex-row">
+        <component :is="route.icon" class="h-6 pr-2" />
+        <span>{{ route.name }}</span>
+      </div>
+      <ChevronRightIcon class="h-6 opacity-0 group-hover:opacity-100 duration-150" />
+    </RouterLink>
   </div>
 </template>
 
-<style scoped>
-a {
-  @apply flex flex-row rounded-xl text-lg cursor-pointer py-2 px-5
-}
-</style>
+<style scoped></style>
