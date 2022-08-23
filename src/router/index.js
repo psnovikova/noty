@@ -21,10 +21,12 @@ const routes = [
     ],
   },
   {
+    name: 'todos',
     path: '/todos',
     component: () => import('/src/pages/todos/TodosPage.vue'),
   },
   {
+    name: 'settings',
     path: '/settings',
     component: () => import('/src/pages/settings/SettingsPage.vue'),
   },
