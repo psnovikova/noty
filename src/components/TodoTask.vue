@@ -15,10 +15,8 @@ const { modelValue: todo } = useVModels(props, emit)
 </script>
 
 <template>
-  <div class="flex flex-row items-start px-6 space-x-4">
+  <div class="flex flex-row items-center px-6 space-x-4 group">
     <MenuAlt4Icon class="h-6 handle" />
-    <!--  toggle todo.isDone => onClick => toggle func  -->
-    <!--    Кнопка задача выполнена -->
     <button
       class="h-8 w-8 bg-white rounded-xl flex justify-center items-center"
       @click="todo.isDone = !todo.isDone"
@@ -28,21 +26,17 @@ const { modelValue: todo } = useVModels(props, emit)
     <ResizeTextarea
       v-model="todo.text"
       :rows="1"
-      class="font-medium bg-transparent outline-none py-1 grow"
+      class="font-medium bg-transparent outline-none grow py-3"
       :class="{ 'line-through text-stone-400': todo.isDone }"
       placeholder="пустая задача"
     />
-
-    <!--    УДАЛЕНИЕ ЗАДАЧ -->
     <button
       class="h-8 w-8 p-1"
       @click="emit('delete', todo.id)"
     >
-      <XIcon class="h-6 stroke-stone-400" />
+      <XIcon class="h-6 stroke-stone-400 sm:opacity-0 group-hover:opacity-100" />
     </button>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped />
