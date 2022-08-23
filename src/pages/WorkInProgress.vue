@@ -1,6 +1,4 @@
-<script setup>
-
-</script>
+<script setup />
 
 <template>
   <div class="max-w-screen-lg w-full grow mx-auto overflow-x-hidden flex flex-col items-center justify-center relative">
@@ -15,6 +13,4 @@
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped />
